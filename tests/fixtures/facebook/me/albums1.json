@@ -1,0 +1,38 @@
+{
+    "data": [{
+        "id": "987502594774",
+        "from": {
+            "name": "Simon Murtha-Smith",
+            "id": "5316709"
+        },
+        "name": "Mobile Uploads",
+        "link": "http:\/\/www.facebook.com\/album.php?fbid=987502594774&id=5316709&aid=2451751",
+        "cover_photo": "987502599764",
+        "privacy": "friends",
+        "count": 4,
+        "type": "mobile",
+        "created_time": 1314329721,
+        "updated_time": 1324176454,
+        "can_upload": false
+    },
+    {
+        "id": "769345144054",
+        "from": {
+            "name": "Simon Murtha-Smith",
+            "id": "5316709"
+        },
+        "name": "Profile Pictures",
+        "link": "http:\/\/www.facebook.com\/album.php?fbid=769345144054&id=5316709&aid=2376301",
+        "cover_photo": "980380996514",
+        "privacy": "friends",
+        "count": 21,
+        "type": "profile",
+        "created_time": 1286822679,
+        "updated_time": 1313029048,
+        "can_upload": false
+    }],
+    "paging": {
+        "previous": "https:\/\/graph.facebook.com\/me\/albums?access_token=qwerty&date_format=U&limit=25&since=1314329721&__paging_token=987502594774&__previous=1",
+        "next": "https:\/\/graph.facebook.com\/me\/albums?access_token=qwerty&date_format=U&limit=25&until=1178414055&__paging_token=509208145684"
+    }
+}
