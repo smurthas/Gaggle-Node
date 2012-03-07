@@ -10,8 +10,8 @@
         "node": ">= 0.6.8"
     },
     "scripts": {
-        "test": "make test",
-        "start": "./gaggle"
+        "test": "export NODE_PATH=lib && vows tests/*.js",
+        "start": "export NODE_PATH=lib && node server.js"
     },
     "dependencies": {
         "connect": "=1.8.5",
