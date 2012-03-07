@@ -1,0 +1,32 @@
+{
+    "name": "gaggle",
+    "description": "fly together",
+    "version": "0.0.0",
+    "homepage": "https://github.com/smurthas/gaggle",
+    "directories": {
+        "lib": "./lib"
+    },
+    "engines": {
+        "node": ">= 0.6.8"
+    },
+    "scripts": {
+        "test": "make test",
+        "start": "./gaggle"
+    },
+    "dependencies": {
+        "connect": "=1.8.5",
+        "express": "=2.5.4",
+        "async": "=0.1.15",
+        "facebook-js": "=1.0.0",
+        "oauth": "=0.9.5",
+        "request": "=2.9.3",
+        "api-easy": "=0.2.3",
+        "vows": "=0.5.11",
+        "mongodb": "=0.9.8-1",
+        "winston": "=0.5.2",
+        "airbrake": "=0.2.2",
+        "node-fakeweb": "=0.0.7",
+        "mkdirp": "0.3.0",
+        "optimist": "0.2.6"
+    }
+}
