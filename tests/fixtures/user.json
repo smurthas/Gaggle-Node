@@ -75,5 +75,22 @@
       "statuses_count": 298,
       "time_zone": "Eastern Time (US & Canada)"
     }
+  },
+  "instagram": {
+    "auth_token": "qwerty",
+    "uid": "1920906",
+    "profile": {
+      "username": "smurthas",
+      "bio": "",
+      "website": "",
+      "profile_picture": "http://images.instagram.com/profiles/profile_1920906_75sq_1319410004.jpg",
+      "full_name": "Simon Murtha-Smith",
+      "counts": {
+        "media": 26,
+        "followed_by": 31,
+        "follows": 14
+      },
+      "id": "1920906"
+    }
   }
 }

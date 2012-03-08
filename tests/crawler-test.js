@@ -12,12 +12,19 @@ var fs = require('fs');
 
 vows.describe('Crawler').addBatch(clean).addBatch(addUser)
 .addBatch({
+  'can init crawler': {
+    topic: function() {
+      crawler.init(this.callback)
+    },
+    'without an error': function(err) {
+      assert.notEqual(typeof err, Object);
+    }
+  }
+})
+.addBatch({
   'can sync from facebook': {
     topic: function() {
-      var cb = this.callback;
-      crawler.init(function() {
-        crawler.crawl(global.user, 'facebook', cb);
-      })
+      crawler.crawl(global.user, 'facebook', this.callback);
     },
     'without an error': function(err) {
       assert.notEqual(typeof err, Object);
@@ -26,18 +33,10 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
 }).addBatch(  {
   'photos synced from fb': {
     topic: function() {
-      var cb = this.callback;
-      users.getCollection('posts').count({}, function(err, count) {
-        if(err) return cb(err);
-        users.getCollection('posts').find({}).toArray(function(err, array) {
-          if(err) return cb(err);
-          cb(undefined, {count:count, posts: array});
-        });
-      });
+      users.getCollection('posts').count({}, this.callback);
     },
-    'get saved in db': function(err, info) {
-      assert.equal(info.count, 85);
-      assert.equal(info.posts.length, 85);
+    'get saved in db': function(err, count) {
+      assert.equal(count, 85);
     }
   }
 }).addBatch(clean).addBatch(addUser)
@@ -56,18 +55,32 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
 }).addBatch(  {
   'tweets synced from tw': {
     topic: function() {
-      var cb = this.callback;
-      users.getCollection('posts').count({}, function(err, count) {
-        if(err) return cb(err);
-        users.getCollection('posts').find({}).toArray(function(err, array) {
-          if(err) return cb(err);
-          cb(undefined, {count:count, posts: array});
-        });
-      });
+      users.getCollection('posts').count({}, this.callback);
     },
-    'get saved in db': function(err, info) {
-      assert.equal(info.count, 309);
-      assert.equal(info.posts.length, 309);
+    'get saved in db': function(err, count) {
+      assert.equal(count, 309);
+    }
+  }
+}).addBatch(clean).addBatch(addUser)
+.addBatch({
+  'can sync from instagram': {
+    topic: function() {
+      var cb = this.callback;
+      crawler.init(function() {
+        crawler.crawl(global.user, 'instagram', cb);
+      })
+    },
+    'without an error': function(err) {
+      assert.notEqual(typeof err, Object);
+    }
+  }
+}).addBatch({
+  'photos synced from instagram': {
+    topic: function() {
+      users.getCollection('posts').count({}, this.callback);
+    },
+    'get saved in db': function(err, count) {
+      assert.equal(count, 30);
     }
   }
 })
