@@ -77,4 +77,15 @@ vows.describe('The JSON API').addBatch({
       assert.equal(info.posts.length, 85);
     }
   }
+}).addBatch({
+  'clean up': {
+    topic: function() {
+      worker.stop();
+      server.close();
+      this.callback();
+    },
+    'get saved in db': function(err, info) {
+      assert.equal(0, 0);
+    }
+  }
 }).export(module);

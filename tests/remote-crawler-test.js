@@ -13,34 +13,53 @@ var fs = require('fs');
 
 vows.describe('Remote Crawler').addBatch(clean).addBatch(addUser)
 .addBatch({
-  'can sync from facebook': {
+  'can setup': {
     topic: function() {
       var cb = this.callback;
       worker.init(12346, function() {
-        crawler.init([12346], function() {
-          crawler.crawl(global.user, 'facebook', cb);
-        })
-      })
+        crawler.init([12346], cb);
+      });
+    },
+    'without and error': function(err) {
+      assert.notEqual(typeof err, Object);
+    }
+  }
+}).addBatch({
+  'can sync from facebook': {
+    topic: function() {
+      crawler.crawl(global.user, 'facebook', this.callback);
     },
     'without an error': function(err) {
       assert.notEqual(typeof err, Object);
     }
   }
 }).addBatch({
-  'photos synced from fb': {
+  'photos synced from facebook': {
     topic: function() {
-      var cb = this.callback;
-      users.getCollection('posts').count({}, function(err, count) {
-      if(err) return cb(err);
-        users.getCollection('posts').find({}).toArray(function(err, array) {
-          if(err) return cb(err);
-          cb(undefined, {count:count, posts: array});
-        });
-      });
+      users.getCollection('posts').count({}, this.callback);
     },
-    'get saved in db': function(err, info) {
-      assert.equal(info.count, 85);
-      assert.equal(info.posts.length, 85);
+    'get saved in db': function(err, count) {
+      assert.equal(count, 85);
     }
   }
-}).export(module);
+}).addBatch(clean).addBatch(addUser)
+.addBatch({
+  'can sync from twitter': {
+    topic: function() {
+      crawler.crawl(global.user, 'twitter', this.callback);
+    },
+    'without an error': function(err) {
+      assert.notEqual(typeof err, Object);
+    }
+  }
+}).addBatch({
+  'photos synced from twitter': {
+    topic: function() {
+      users.getCollection('posts').count({}, this.callback);
+    },
+    'get saved in db': function(err, count) {
+      assert.equal(count, 309);
+    }
+  }
+})
+.export(module);

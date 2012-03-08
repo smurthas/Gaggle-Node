@@ -37,3 +37,8 @@ mongo.connect(function(err) {
     module.exports.emit('up');
   });
 });
+
+module.exports.close = function() {
+  app.close();
+  crawlerClient.stop();
+}

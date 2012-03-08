@@ -16,6 +16,10 @@ module.exports.init = function(port, callback) {
   });
 };
 
+module.exports.stop = function() {
+  server.close();
+}
+
 if(listenPort) module.exports.init(listenPort, function() {
   console.log('listening on ', listenPort);
 });
