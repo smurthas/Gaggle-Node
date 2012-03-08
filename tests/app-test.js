@@ -37,22 +37,22 @@ vows.describe('The JSON API').addBatch({
       'gets 400': function(err, resp, body) {
         assert.isNull(err);
         assert.equal(resp.statusCode, 400);
-        assert.equal(body, '_id required');
+        assert.equal(body, 'user_id required');
       }
     },
     'with an invalid _id': {
       topic: function() {
-        request.post({uri:config.app.url + '/start', json: {_id:'aaaaaaaaaaaa', provider:'facebook'}}, this.callback);
+        request.post({uri:config.app.url + '/start', json: {user_id:'aaaaaaaaaaaa', provider:'facebook'}}, this.callback);
       },
       'gets 400': function(err, resp, body) {
         assert.isNull(err);
         assert.equal(resp.statusCode, 400);
-        assert.equal(body, 'user with _id aaaaaaaaaaaa not found');
+        assert.equal(body, 'user with user_id aaaaaaaaaaaa not found');
       }
     },
     'with a valid _id': {
       topic: function() {
-        request.post({uri:config.app.url + '/start', json: {_id:global.user._id, provider:'facebook'}}, this.callback);
+        request.post({uri:config.app.url + '/start', json: {user_id:global.user._id, provider:'facebook'}}, this.callback);
       },
       'gets 200': function(err, resp, body) {
         assert.isNull(err);

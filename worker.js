@@ -16,4 +16,6 @@ module.exports.init = function(port, callback) {
   });
 };
 
-if(listenPort) module.exports.init(listenPort);
+if(listenPort) module.exports.init(listenPort, function() {
+  console.log('listening on ', listenPort);
+});
