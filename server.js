@@ -14,7 +14,6 @@ module.exports = new EventEmitter();
 
 app.post('/start', function(req, res) {
   var _id = req.body._id;
-  console.error("DEBUG: _id", typeof _id);
   var provider =  req.body.provider;
   if (!_id) return res.send('_id required', 400);
   if (!provider) return res.send('provider required', 400);

@@ -22,4 +22,13 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       assert.notEqual(typeof err, Object);
     }
   }
+}).addBatch({
+  'photos synced from fb': {
+    topic: function() {
+      users.getCollection(global.user._id, 'facebook', 'photos').count({}, this.callback);
+    },
+    'get saved in db': function(err, count) {
+      assert.equal(count, 25);
+    }
+  }
 }).export(module);

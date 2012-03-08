@@ -45,7 +45,6 @@ vows.describe('The JSON API').addBatch({
     },
     'with a valid _id': {
       topic: function() {
-        console.error("DEBUG: global.user._id", global.user._id);
         request.post({uri:config.app.url + '/start', json: {_id:global.user._id, provider:'facebook'}}, this.callback);
       },
       'gets 200': function(err, resp, body) {
