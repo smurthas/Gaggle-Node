@@ -22,3 +22,7 @@ exports.insertObj = function(userId, provider, type, obj, callback) {
 exports.getCollection = function(type) {
   return mongo.getCollection(type);
 }
+
+exports.connect = function(callback) {
+  mongo.connect(callback);
+}
