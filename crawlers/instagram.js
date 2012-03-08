@@ -16,5 +16,5 @@ exports.map = {
 
 function getPhotos(token, callback) {
   var photos = [];
-  instagram.getMedia({access_token:token}, function(photo) {photos.push(photo)}, function() { callback(undefined, photos)});
+  instagram.getMedia({access_token:token}, function(photo) {photos.push(photo)}, function(err) { callback(err, photos)});
 }

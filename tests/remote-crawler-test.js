@@ -35,7 +35,7 @@ vows.describe('Remote Crawler').addBatch(clean).addBatch(addUser)
       });
     },
     'get saved in db': function(err, count) {
-      assert.equal(count, 85);
+      assert.equal(count, 83);
     }
   }
 })

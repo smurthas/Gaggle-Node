@@ -26,3 +26,9 @@ exports.getCollection = function(type) {
 exports.connect = function(callback) {
   mongo.connect(callback);
 }
+
+exports.setLatestUpdateTime = function(userId, provider, time, callback) {
+  var set = {$set:{}};
+  set.$set[provider + '.last_update'] = time;
+  mongo.getCollection('users').findAndModify({_id:userId}, [], set, {upsert:false, multi:false, safe:true}, callback);
+}

@@ -1,0 +1,1 @@
+export NODE_PATH=lib:. && node worker.js $@
