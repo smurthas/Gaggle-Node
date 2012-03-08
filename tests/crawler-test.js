@@ -25,10 +25,22 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
 }).addBatch({
   'photos synced from fb': {
     topic: function() {
-      users.getCollection(global.user._id, 'facebook', 'photos').count({}, this.callback);
+      var cb = this.callback;
+      users.getCollection(global.user._id, 'facebook', 'photos').count({}, function(err, photosCount) {
+        if(err) return cb(err);
+        users.getCollection(global.user._id, 'facebook', 'albums').count({}, function(err, albumsCount) {
+          if(err) return cb(err);
+          users.getCollection(global.user._id, 'facebook', 'photos').find({}).toArray(function(err, array) {
+            if(err) return cb(err);
+            cb(undefined, {albumsCount:albumsCount, photosCount:photosCount, photos: array});
+          });
+        });
+      });
     },
-    'get saved in db': function(err, count) {
-      assert.equal(count, 25);
+    'get saved in db': function(err, info) {
+      console.error("DEBUG: info.photos", info.photos);
+      assert.equal(info.photosCount, 25);
+      assert.equal(info.albumsCount, 2);
     }
   }
 }).export(module);

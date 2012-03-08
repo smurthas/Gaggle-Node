@@ -10,6 +10,15 @@ exports.sync = function(userFbObject, callback) {
   });
 }
 
+exports.map = {
+  photos: {
+    text: 'name',
+    source_url: 'link',
+    source_creation_date: function(obj) { return obj.created_time * 1000 }
+  },
+  albums: {}
+};
+
 function getAllAlbums(fbId, accessToken, callback) {
   var albums = [];
   fb.getAlbums({id:"me", accessToken:accessToken}, function(album) {albums.push(album)}, function() { callback(undefined, albums)});
