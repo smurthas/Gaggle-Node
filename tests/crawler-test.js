@@ -38,7 +38,6 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       });
     },
     'get saved in db': function(err, info) {
-      console.error("DEBUG: info.photos", info.photos);
       assert.equal(info.photosCount, 25);
       assert.equal(info.albumsCount, 2);
     }

@@ -6,6 +6,7 @@ var connect = require('connect');
 var config = require('config');
 
 var mongo = require('mongo');
+var crawlerClient = require('crawlerClient');
 var usersCollection;
 
 var app = express.createServer(connect.bodyParser());
@@ -20,12 +21,16 @@ app.post('/start', function(req, res) {
   mongo.getCollection('users').findOne({_id: new mongo.ObjectID(_id)}, function(err, user) {
     if (err) return res.send(err, 500);
     if (!user) return res.send('user with _id ' + _id + ' not found', 400);
-    res.send(200);
+    crawlerClient.crawl(user, provider, function() {
+      res.send(200);
+    });
   });
 });
 
 mongo.connect(function(err) {
   if (err) throw err;
-  app.listen(config.app.port);
-  module.exports.emit('up');
+  crawlerClient.init(config.dnode.workers, function() {
+    app.listen(config.app.port);
+    module.exports.emit('up');
+  });
 });

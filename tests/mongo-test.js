@@ -4,8 +4,6 @@ var assert = require('assert');
 var request = require('request');
 var config = require('config');
 
-var server = require(__dirname + '/../server');
-
 var mongo = require('mongo');
 
 var user = JSON.parse(fs.readFileSync(__dirname + '/fixtures/user.json'));

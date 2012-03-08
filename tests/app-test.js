@@ -6,8 +6,11 @@ var config = require('config');
 var addUser = require(__dirname + '/utils/addUser');
 var users = require(__dirname + '/../models/users');
 var clean = require(__dirname + '/utils/clean');
+var worker = require(__dirname + '/../worker');
 
-var server = require(__dirname + '/../server');
+require(__dirname + '/fixtures/facebook/fake.js')
+
+var server;
 
 var mongo = require('mongo');
 
@@ -15,7 +18,11 @@ var mongo = require('mongo');
 vows.describe('The JSON API').addBatch({
   'can start a web server': {
     topic: function() {
-      server.on('up', this.callback);
+      var cb = this.callback;
+      worker.init(config.dnode.workers[0], function() {
+        server = require(__dirname + '/../server');
+        server.on('up', cb);
+      });
     },
     'successfully': function() {
       assert.equal(0,0);
@@ -53,5 +60,24 @@ vows.describe('The JSON API').addBatch({
       }
     }
   }
-
+}).addBatch({
+  'photos synced from fb': {
+    topic: function() {
+      var cb = this.callback;
+      users.getCollection(global.user._id, 'facebook', 'photos').count({}, function(err, photosCount) {
+        if(err) return cb(err);
+        users.getCollection(global.user._id, 'facebook', 'albums').count({}, function(err, albumsCount) {
+          if(err) return cb(err);
+          users.getCollection(global.user._id, 'facebook', 'photos').find({}).toArray(function(err, array) {
+            if(err) return cb(err);
+            cb(undefined, {albumsCount:albumsCount, photosCount:photosCount, photos: array});
+          });
+        });
+      });
+    },
+    'get saved in db': function(err, info) {
+      assert.equal(info.photosCount, 25);
+      assert.equal(info.albumsCount, 2);
+    }
+  }
 }).export(module);

@@ -16,8 +16,8 @@ vows.describe('Remote Crawler').addBatch(clean).addBatch(addUser)
   'can sync from facebook': {
     topic: function() {
       var cb = this.callback;
-      worker.init(12345, function() {
-        crawler.init([12345], function() {
+      worker.init(12346, function() {
+        crawler.init([12346], function() {
           crawler.crawl(global.user, 'facebook', cb);
         })
       })
@@ -42,7 +42,6 @@ vows.describe('Remote Crawler').addBatch(clean).addBatch(addUser)
       });
     },
     'get saved in db': function(err, info) {
-      console.error("DEBUG: info.photos", info.photos);
       assert.equal(info.photosCount, 25);
       assert.equal(info.albumsCount, 2);
     }
