@@ -21,7 +21,7 @@ app.post('/start', function(req, res) {
   mongo.getCollection('users').findOne({_id: new mongo.ObjectID(user_id)}, function(err, user) {
     if (err) return res.send(err, 500);
     if (!user) return res.send('user with user_id ' + user_id + ' not found', 400);
-    console.log('calling crawler with user', user, 'provider' + provider);
+    console.log('calling crawler with user', user._id, 'provider' + provider);
     crawlerClient.crawl(user, provider, function(err) {
       if (err) return res.send(err, 500);
       res.send(200);
