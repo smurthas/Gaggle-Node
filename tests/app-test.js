@@ -3,17 +3,17 @@ var fs = require('fs');
 var assert = require('assert');
 var request = require('request');
 var config = require('config');
+var addUser = require(__dirname + '/utils/addUser');
+var users = require(__dirname + '/../models/users');
+var clean = require(__dirname + '/utils/clean');
 
 var server = require(__dirname + '/../server');
 
 var mongo = require('mongo');
 
-var user = JSON.parse(fs.readFileSync(__dirname + '/fixtures/user.json'));
-
-var userObj;
 
 vows.describe('The JSON API').addBatch({
-  'can connect to mongo and start a web server': {
+  'can start a web server': {
     topic: function() {
       server.on('up', this.callback);
     },
@@ -21,20 +21,7 @@ vows.describe('The JSON API').addBatch({
       assert.equal(0,0);
     }
   }
-}).addBatch({
-  'can get going': {
-    topic: function() {
-      var cb = this.callback;
-      mongo.connect(function() {
-        mongo.collections.users.save(user, cb);
-      })
-    },
-    'with some mock data': function(_userObj) {
-      userObj = _userObj;
-      assert.equal(user.facebook.accessToken, userObj.facebook.accessToken);
-    }
-  }
-}).addBatch({
+}).addBatch(clean).addBatch(addUser).addBatch({
   'with a post to /start': {
     'without _id and provider': {
       topic: function() {
@@ -58,7 +45,8 @@ vows.describe('The JSON API').addBatch({
     },
     'with a valid _id': {
       topic: function() {
-        request.post({uri:config.app.url + '/start', json: {_id:userObj._id, provider:'facebook'}}, this.callback);
+        console.error("DEBUG: global.user._id", global.user._id);
+        request.post({uri:config.app.url + '/start', json: {_id:global.user._id, provider:'facebook'}}, this.callback);
       },
       'gets 200': function(err, resp, body) {
         assert.isNull(err);

@@ -17,7 +17,7 @@ vows.describe('The mongo lib').addBatch({
       mongo.connect(cb);
     },
     'successfully': function() {
-      assert.isNotNull(mongo.collections.users);
+      assert.isNotNull(mongo.getCollection('users'));
     }
   }
 }).export(module);

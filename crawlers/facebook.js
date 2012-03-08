@@ -5,7 +5,7 @@ exports.sync = function(userFbObject, callback) {
   getAllAlbums(userFbObject.profile.id, userFbObject.accessToken, function(err, albums) {
     if (err) return callback(err);
     getAllPhotos(userFbObject.profile.id, userFbObject.accessToken, albums, function(err, photos) {
-      callback(err, {albums: albums, photos:photos});
+      callback(err, [{type:'albums', data: albums}, {type:'photos', data:photos}]);
     });
   });
 }
