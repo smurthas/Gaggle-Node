@@ -17,7 +17,7 @@ module.exports = {
     },
     'with a mock user': function(err, userObj) {
       global.user = userObj;
-      assert.equal(user.facebook.accessToken, global.user.facebook.accessToken);
+      assert.equal(user.facebook.auth_token, global.user.facebook.auth_token);
     }
   }
 };
