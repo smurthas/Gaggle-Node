@@ -6,7 +6,9 @@ module.exports = {
   'can be cleaned up': {
     topic: function() {
       var cb = this.callback;
-      mongo.dropDatabase(cb);
+      mongo.connect(function() {
+        mongo.dropDatabase(cb);
+      });
     },
     'leaves it empty': function(err, datas) {
       assert.equal(0,0);
