@@ -24,41 +24,48 @@ vows.describe('Remote Crawler').addBatch(clean).addBatch(addUser)
       assert.notEqual(typeof err, Object);
     }
   }
-}).addBatch({
+})
+.addBatch({
   'can sync from facebook': {
     topic: function() {
-      crawler.crawl(global.user, 'facebook', this.callback);
-    },
-    'without an error': function(err) {
-      assert.notEqual(typeof err, Object);
-    }
-  }
-}).addBatch({
-  'photos synced from facebook': {
-    topic: function() {
-      users.getCollection('posts').count({}, this.callback);
+      var cb = this.callback;
+      crawler.crawl(global.user, 'facebook', function(err) {
+        if (err) return cb(err);
+        users.getCollection('posts').count({}, cb);
+      });
     },
     'get saved in db': function(err, count) {
       assert.equal(count, 85);
     }
   }
-}).addBatch(clean).addBatch(addUser)
+})
+.addBatch(clean).addBatch(addUser)
 .addBatch({
   'can sync from twitter': {
     topic: function() {
-      crawler.crawl(global.user, 'twitter', this.callback);
-    },
-    'without an error': function(err) {
-      assert.notEqual(typeof err, Object);
-    }
-  }
-}).addBatch({
-  'photos synced from twitter': {
-    topic: function() {
-      users.getCollection('posts').count({}, this.callback);
+      var cb = this.callback;
+      crawler.crawl(global.user, 'twitter', function(err) {
+        if (err) return cb(err);
+        users.getCollection('posts').count({}, cb);
+      });
     },
     'get saved in db': function(err, count) {
       assert.equal(count, 309);
+    }
+  }
+})
+.addBatch(clean).addBatch(addUser)
+.addBatch({
+  'can sync from instagram': {
+    topic: function() {
+      var cb = this.callback;
+      crawler.crawl(global.user, 'instagram', function(err) {
+        if (err) return cb(err);
+        users.getCollection('posts').count({}, cb);
+      });
+    },
+    'get saved in db': function(err, count) {
+      assert.equal(count, 30);
     }
   }
 })

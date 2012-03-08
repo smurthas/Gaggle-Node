@@ -24,60 +24,41 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
 .addBatch({
   'can sync from facebook': {
     topic: function() {
-      crawler.crawl(global.user, 'facebook', this.callback);
-    },
-    'without an error': function(err) {
-      assert.notEqual(typeof err, Object);
-    }
-  }
-}).addBatch(  {
-  'photos synced from fb': {
-    topic: function() {
-      users.getCollection('posts').count({}, this.callback);
+      var cb = this.callback;
+      crawler.crawl(global.user, 'facebook', function(err) {
+        if (err) return cb(err);
+        users.getCollection('posts').count({}, cb);
+      });
     },
     'get saved in db': function(err, count) {
       assert.equal(count, 85);
     }
   }
-}).addBatch(clean).addBatch(addUser)
+})
+.addBatch(clean).addBatch(addUser)
 .addBatch({
   'can sync from twitter': {
     topic: function() {
       var cb = this.callback;
-      crawler.init(function() {
-        crawler.crawl(global.user, 'twitter', cb);
-      })
-    },
-    'without an error': function(err) {
-      assert.notEqual(typeof err, Object);
-    }
-  }
-}).addBatch(  {
-  'tweets synced from tw': {
-    topic: function() {
-      users.getCollection('posts').count({}, this.callback);
+      crawler.crawl(global.user, 'twitter', function(err) {
+        if (err) return cb(err);
+        users.getCollection('posts').count({}, cb);
+      });
     },
     'get saved in db': function(err, count) {
       assert.equal(count, 309);
     }
   }
-}).addBatch(clean).addBatch(addUser)
+})
+.addBatch(clean).addBatch(addUser)
 .addBatch({
   'can sync from instagram': {
     topic: function() {
       var cb = this.callback;
-      crawler.init(function() {
-        crawler.crawl(global.user, 'instagram', cb);
-      })
-    },
-    'without an error': function(err) {
-      assert.notEqual(typeof err, Object);
-    }
-  }
-}).addBatch({
-  'photos synced from instagram': {
-    topic: function() {
-      users.getCollection('posts').count({}, this.callback);
+      crawler.crawl(global.user, 'instagram', function(err) {
+        if (err) return cb(err);
+        users.getCollection('posts').count({}, cb);
+      });
     },
     'get saved in db': function(err, count) {
       assert.equal(count, 30);
