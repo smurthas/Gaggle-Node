@@ -28,6 +28,7 @@
         "airbrake": "=0.2.2",
         "node-fakeweb": "=0.0.7",
         "mkdirp": "0.3.0",
-        "optimist": "0.2.6"
+        "optimist": "0.2.6",
+        "redis":"0.7.1"
     }
 }
