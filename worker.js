@@ -9,6 +9,11 @@ var server = dnode({
     crawl : crawler.crawl
 });
 
-crawler.init(function(err) {
-  server.listen(listenPort);
-});
+module.exports.init = function(port, callback) {
+  crawler.init(function(err) {
+    server.listen(port);
+    callback();
+  });
+};
+
+if(listenPort) module.exports.init(listenPort);
