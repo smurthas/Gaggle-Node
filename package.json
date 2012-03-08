@@ -10,7 +10,7 @@
         "node": ">= 0.6.8"
     },
     "scripts": {
-        "test": "export NODE_PATH=lib && vows tests/*-test.js -v",
+        "test": "export NODE_PATH=lib && vows tests/*-test.js --spec -v",
         "start": "export NODE_PATH=lib && node server.js -c config-run.json"
     },
     "dependencies": {

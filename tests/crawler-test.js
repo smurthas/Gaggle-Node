@@ -35,9 +35,8 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       });
     },
     'get saved in db': function(err, info) {
-      assert.equal(info.count, 27);
-      assert.equal(info.posts.length, 27);
-      console.error("DEBUG: info.posts", info.posts);
+      assert.equal(info.count, 85);
+      assert.equal(info.posts.length, 85);
     }
   }
 }).export(module);

@@ -73,8 +73,8 @@ vows.describe('The JSON API').addBatch({
       });
     },
     'get saved in db': function(err, info) {
-      assert.equal(info.count, 27);
-      assert.equal(info.posts.length, 27);
+      assert.equal(info.count, 85);
+      assert.equal(info.posts.length, 85);
     }
   }
 }).export(module);
