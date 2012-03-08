@@ -5,18 +5,18 @@ exports.sync = function(userFbObject, callback) {
   getAllAlbums(userFbObject.info.id, userFbObject.auth_token, function(err, albums) {
     if (err) return callback(err);
     getAllPhotos(userFbObject.info.id, userFbObject.auth_token, albums, function(err, photos) {
-      callback(err, [{type:'albums', data: albums}, {type:'photos', data:photos}]);
+      callback(err, [{type:'album', data: albums}, {type:'photo', data:photos}]);
     });
   });
 }
 
 exports.map = {
-  photos: {
+  photo: {
     text: 'name',
     source_url: 'link',
     source_creation_date: function(obj) { return obj.created_time * 1000 }
   },
-  albums: {}
+  album: {}
 };
 
 function getAllAlbums(fbId, accessToken, callback) {

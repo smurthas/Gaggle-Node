@@ -16,9 +16,9 @@ vows.describe('The Facebook Crawler').addBatch(clean).addBatch({
     },
     'returns albums and photos': function(err, datas) {
       assert.notEqual(typeof err, Object);
-      assert.equal(datas[0].type,'albums');
+      assert.equal(datas[0].type,'album');
       assert.notEqual(datas[0].data.length,0);
-      assert.equal(datas[1].type,'photos');
+      assert.equal(datas[1].type,'photo');
       assert.notEqual(datas[1].data.length, 0);
     }
   }

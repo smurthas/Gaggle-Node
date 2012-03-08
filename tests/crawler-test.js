@@ -22,24 +22,22 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       assert.notEqual(typeof err, Object);
     }
   }
-}).addBatch({
+}).addBatch(  {
   'photos synced from fb': {
     topic: function() {
       var cb = this.callback;
-      users.getCollection(global.user._id, 'facebook', 'photos').count({}, function(err, photosCount) {
+      users.getCollection('posts').count({}, function(err, count) {
         if(err) return cb(err);
-        users.getCollection(global.user._id, 'facebook', 'albums').count({}, function(err, albumsCount) {
+        users.getCollection('posts').find({}).toArray(function(err, array) {
           if(err) return cb(err);
-          users.getCollection(global.user._id, 'facebook', 'photos').find({}).toArray(function(err, array) {
-            if(err) return cb(err);
-            cb(undefined, {albumsCount:albumsCount, photosCount:photosCount, photos: array});
-          });
+          cb(undefined, {count:count, posts: array});
         });
       });
     },
     'get saved in db': function(err, info) {
-      assert.equal(info.photosCount, 25);
-      assert.equal(info.albumsCount, 2);
+      assert.equal(info.count, 27);
+      assert.equal(info.posts.length, 27);
+      console.error("DEBUG: info.posts", info.posts);
     }
   }
 }).export(module);
