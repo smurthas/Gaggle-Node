@@ -9,7 +9,8 @@ exports.sync = function(userInstagramObject, callback) {
 exports.map = {
   photo: {
     text: function(obj) { return obj.caption? obj.caption.text: undefined },
-    image_url: 'link',
+    source_url: 'link',
+    image_url: function(obj) { return obj.images.standard_resolution.url; },
     source_creation_date: function(obj) { return parseInt(obj.created_time) * 1000 }
   }
 };
