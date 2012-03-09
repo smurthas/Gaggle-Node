@@ -1,1 +1,1 @@
-worker: export NODE_PATH=lib:. && node dispatcher.js -c config-prod.json
+worker: node dispatcher.js -c config-prod.json
