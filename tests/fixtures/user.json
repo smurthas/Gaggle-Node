@@ -30,10 +30,7 @@
     }
   },
   "twitter": {
-    "auth_token": {
-        "oauth_token": "qwerty",
-        "oauth_token_secret": "asdfgh"
-    },
+    "auth_token": "qwerty",
     "uid": "15693142",
     "info": {
       "id": 15693142,

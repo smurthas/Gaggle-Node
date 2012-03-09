@@ -25,5 +25,5 @@ exports.map = {
 
 function getTweets(token, screen_name, callback) {
   var tweets = [];
-  tw.getTweets({screen_name:screen_name, token:token}, function(tweet) {tweets.push(tweet)}, function(err) { callback(err, tweets)});
+  tw.getTweets({screen_name:screen_name, token:{oauth_token:token}}, function(tweet) {tweets.push(tweet)}, function(err) { callback(err, tweets)});
 }
