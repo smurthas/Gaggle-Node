@@ -3,6 +3,7 @@
     "host": "localhost",
     "port": 27017,
     "db": "gaggle",
+    "user": "gaggle_thing432",
     "collections": {
       "users": "users",
       "posts": "posts"
