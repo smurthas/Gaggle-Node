@@ -16,7 +16,7 @@
     "port": 9637,
     "host": "cod.redistogo.com",
     "key": "GQ",
-    "count": 1,
+    "count": 5,
     "timeout": 10
   }
 }
