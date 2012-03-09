@@ -29,6 +29,7 @@
         "node-fakeweb": "=0.0.7",
         "mkdirp": "0.3.0",
         "optimist": "0.2.6",
+        "twitter-js": "0.0.5",
         "redis":"0.7.1"
     }
 }
