@@ -1,8 +1,8 @@
 {
   "mongo": {
-    "host": "localhost",
-    "port": 27017,
-    "db": "gaggle",
+    "host": "ds031417.mongolab.com",
+    "port": 31417,
+    "db": "gaggle_me_production",
     "user": "gaggle_thing432",
     "collections": {
       "users": "users",
