@@ -33,7 +33,7 @@ function doCrawl() {
         console.error('error parsing user', user);
       }
     }
-        // console.error("DEBUG: user", user);
+    if(process.env.GAGGLE_DEBUG) console.error("DEBUG: user", user);
     async.forEach(providers, function(provider, cb) {
       // console.error("DEBUG: provider", provider);
       if(user[provider]) crawler.crawl(user, provider, function(err) {
