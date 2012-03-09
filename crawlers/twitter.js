@@ -18,7 +18,8 @@ exports.map = {
   status: {
     text: 'text',
     source_url: 'link',
-    source_creation_date: function(obj) { return new Date(obj.created_at).getTime(); }
+    source_creation_date: function(obj) { return new Date(obj.created_at).getTime(); },
+    urls: 'urls'
   }
 };
 

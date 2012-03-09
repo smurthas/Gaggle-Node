@@ -35,7 +35,7 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       });
     },
     'get saved in db': function(err, info) {
-      assert.equal(info.count, 83);
+      assert.equal(info.count, 96);
       assert.isTrue(info.last_update > 1331269882);
     }
   }

@@ -21,13 +21,13 @@ exports.map = {
   },
   status: {
     filter: function(obj, user) {
-      if(obj.type !== 'status') return;
-      if(obj.from && obj.from.id != user.facebook.uid) return;
-      return true;
-      if(!obj.story) return;
+      if (!(obj.type === 'status' || obj.type === 'link')) return;
+      if (obj.from && obj.from.id != user.facebook.uid) return;
       return true;
     },
-    text: 'story',
+    text: function(obj) {
+      return (obj.type === 'status'? obj.story : obj.message);
+    },
     source_url: function(obj) {
       var ids = obj.id.split('_');
       return 'https://facebook.com/' + ids[0] + '/posts/' + ids[1];
