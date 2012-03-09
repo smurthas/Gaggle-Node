@@ -2,11 +2,11 @@ var async = require('async');
 var fb = require('facebook');
 
 exports.sync = function(userFbObject, callback) {
-  getAllStatuses(userFbObject.auth_token, function(err, statuses) {
+  getAllStatuses(userFbObject.auth_token, userFbObject.last_update, function(err, statuses) {
     getAllAlbums(userFbObject.uid, userFbObject.auth_token, function(err, albums) {
       if (err) return callback(err);
       getAllPhotos(userFbObject.uid, userFbObject.auth_token, albums, function(err, photos) {
-        callback(err, [{type:'photo', data:photos}, {type:'status', data:statuses}]);
+        callback(err, {data:[{type:'photo', data:photos}, {type:'status', data:statuses}]});
       });
     });
   });
@@ -40,9 +40,10 @@ function getAllAlbums(fbId, accessToken, callback) {
   fb.getAlbums({id:'me', accessToken:accessToken}, function(album) {albums.push(album)}, function() { callback(undefined, albums)});
 }
 
-function getAllStatuses(accessToken, callback) {
+function getAllStatuses(accessToken, since, callback) {
   var statuses = [];
-  fb.getPosts({id:'me', type:'feed', accessToken:accessToken}, function(album) {statuses.push(album)}, function() { callback(undefined, statuses)});
+  if (!since) since = 0;
+  fb.getPosts({id:'me', type:'feed', accessToken:accessToken, since:since}, function(album) {statuses.push(album)}, function() { callback(undefined, statuses)});
 }
 
 function getAllPhotos(fbId, accessToken, albums, callback) {

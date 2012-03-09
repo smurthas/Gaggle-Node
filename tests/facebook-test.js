@@ -16,10 +16,10 @@ vows.describe('The Facebook Crawler').addBatch(clean).addBatch({
     },
     'returns albums and photos': function(err, datas) {
       assert.notEqual(typeof err, Object);
-      assert.equal(datas[0].type,'photo');
-      assert.equal(datas[0].data.length, 25);
-      assert.equal(datas[1].type,'status');
-      assert.equal(datas[1].data.length, 165);
+      assert.equal(datas.data[0].type,'photo');
+      assert.equal(datas.data[0].data.length, 25);
+      assert.equal(datas.data[1].type,'status');
+      assert.equal(datas.data[1].data.length, 165);
     }
   }
 }).export(module);

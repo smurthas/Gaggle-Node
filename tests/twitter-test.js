@@ -16,8 +16,8 @@ vows.describe('The Twitter Crawler').addBatch(clean).addBatch({
     },
     'returns tweets': function(err, datas) {
       assert.notEqual(typeof err, Object);
-      assert.equal(datas[0].type,'status');
-      assert.equal(datas[0].data.length, 309);
+      assert.equal(datas.data[0].type,'status');
+      assert.equal(datas.data[0].data.length, 309);
     }
   }
 }).export(module);

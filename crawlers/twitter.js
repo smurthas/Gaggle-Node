@@ -6,7 +6,11 @@ tw.init(config.apiKeys.twitter.consumerKey, config.apiKeys.twitter.consumerSecre
 
 exports.sync = function(userTwObject, callback) {
   getTweets(userTwObject.auth_token, userTwObject.info.screen_name, function(err, tweets) {
-    callback(err, [{type:'status', data: tweets}]);
+    var last_update = 0;
+    for(var i in tweets) {
+      if(tweets[i].id > last_update) last_update = tweets[i].id;
+    }
+    callback(err, {data:[{type:'status', data: tweets}], last_update:last_update});
   });
 }
 

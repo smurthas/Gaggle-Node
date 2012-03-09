@@ -27,11 +27,16 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       var cb = this.callback;
       crawler.crawl(global.user, 'facebook', function(err) {
         if (err) return cb(err);
-        users.getCollection('posts').count({}, cb);
+        users.get(global.user._id.toString(), function(err, user) {
+          users.getCollection('posts').count({}, function(err, count) {
+            cb(err, {count:count, last_update:user.facebook.last_update});
+          });
+        });
       });
     },
-    'get saved in db': function(err, count) {
-      assert.equal(count, 83);
+    'get saved in db': function(err, info) {
+      assert.equal(info.count, 83);
+      assert.isTrue(info.last_update > 1331269882);
     }
   }
 })
@@ -42,11 +47,16 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       var cb = this.callback;
       crawler.crawl(global.user, 'twitter', function(err) {
         if (err) return cb(err);
-        users.getCollection('posts').count({}, cb);
+        users.get(global.user._id.toString(), function(err, user) {
+          users.getCollection('posts').count({}, function(err, count) {
+            cb(err, {count:count, last_update:user.twitter.last_update});
+          });
+        });
       });
     },
-    'get saved in db': function(err, count) {
-      assert.equal(count, 309);
+    'get saved in db': function(err, info) {
+      assert.equal(info.count, 309);
+      assert.equal(info.last_update, 177498760828555260);
     }
   }
 })
@@ -57,11 +67,16 @@ vows.describe('Crawler').addBatch(clean).addBatch(addUser)
       var cb = this.callback;
       crawler.crawl(global.user, 'instagram', function(err) {
         if (err) return cb(err);
-        users.getCollection('posts').count({}, cb);
+        users.get(global.user._id.toString(), function(err, user) {
+          users.getCollection('posts').count({}, function(err, count) {
+            cb(err, {count:count, last_update:user.instagram.last_update});
+          });
+        });
       });
     },
-    'get saved in db': function(err, count) {
-      assert.equal(count, 30);
+    'get saved in db': function(err, info) {
+      assert.equal(info.count, 30);
+      assert.isTrue(info.last_update > 1331269882);
     }
   }
 })

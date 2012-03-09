@@ -1,8 +1,8 @@
 var instagram = require('instagram');
 
 exports.sync = function(userInstagramObject, callback) {
-  getPhotos(userInstagramObject.auth_token, function(err, photos) {
-    callback(err, [{type:'photo', data: photos}]);
+  getPhotos(userInstagramObject.auth_token, userInstagramObject.last_update, function(err, photos) {
+    callback(err, {data:[{type:'photo', data: photos}]});
   });
 }
 
@@ -14,7 +14,8 @@ exports.map = {
   }
 };
 
-function getPhotos(token, callback) {
+function getPhotos(token, min_timestamp, callback) {
   var photos = [];
-  instagram.getMedia({access_token:token}, function(photo) {photos.push(photo)}, function(err) { callback(err, photos)});
+  if(!min_timestamp) min_timestamp = 0;
+  instagram.getMedia({access_token:token, min_timestamp:min_timestamp}, function(photo) {photos.push(photo)}, function(err) { callback(err, photos)});
 }

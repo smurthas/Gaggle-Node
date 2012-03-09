@@ -16,8 +16,8 @@ vows.describe('The Instagram Crawler').addBatch(clean).addBatch({
     },
     'returns photos': function(err, datas) {
       assert.notEqual(typeof err, Object);
-      assert.equal(datas[0].type,'photo');
-      assert.equal(datas[0].data.length, 30);
+      assert.equal(datas.data[0].type,'photo');
+      assert.equal(datas.data[0].data.length, 30);
     }
   }
 }).export(module);
