@@ -4,6 +4,7 @@ var redis = require('redis');
 var async = require('async');
 
 var client = redis.createClient(config.redis.port, config.redis.host, {});
+if(config.redis.user && config.redis.pass) client.auth(config.redis.user, config.redis.pass);
 
 var providers = ['facebook','twitter','instagram'];
 
