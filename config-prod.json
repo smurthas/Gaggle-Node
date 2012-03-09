@@ -16,7 +16,6 @@
     "host": "cod.redistogo.com",
     "key": "GQ",
     "count": 1,
-    "timeout": 10,
-    "user": "smurthas"
+    "timeout": 10
   }
 }
