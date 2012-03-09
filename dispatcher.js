@@ -2,6 +2,7 @@ var config = require('config');
 var crawler = require('crawler');
 var redis = require('redis');
 var async = require('async');
+
 var client = redis.createClient(config.redis.port, config.redis.host, {});
 
 var providers = ['facebook','twitter','instagram'];

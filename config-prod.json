@@ -1,0 +1,21 @@
+{
+  "mongo": {
+    "host": "localhost",
+    "port": 27017,
+    "db": "gaggle",
+    "collections": {
+      "users": "users",
+      "posts": "posts"
+    }
+  },
+  "scheduler": {
+    "interval": 300
+  },
+  "redis": {
+    "port": 6379,
+    "host": "localhost",
+    "key": "GQ",
+    "count": 1,
+    "timeout": 10
+  }
+}
