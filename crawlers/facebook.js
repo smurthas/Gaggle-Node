@@ -16,6 +16,7 @@ exports.map = {
   photo: {
     text: 'name',
     source_url: 'link',
+    image_url: 'source',
     source_creation_date: function(obj) { return obj.created_time * 1000 }
   },
   status: {
