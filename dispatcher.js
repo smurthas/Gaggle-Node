@@ -13,7 +13,11 @@ if(config.redis.pass) client.auth(config.redis.pass, function(err) {
 });
 
 client.on('ready', function() {
-  crawler.init(function() {
+  crawler.init(function(err) {
+    if(err) {
+      console.error('could not init the crawler with error', err, ', exiting...');
+      process.exit(1);
+    }
     for(var i = 0; i < config.redis.count; i++) process.nextTick(doCrawl);
   })
 });
