@@ -19,7 +19,9 @@ exports.map = {
     text: 'text',
     source_url: 'link',
     source_creation_date: function(obj) { return new Date(obj.created_at).getTime(); },
-    urls: 'urls'
+    urls: function(obj) {
+      return (obj.entities && obj.entities.urls && obj.entities.urls.length > 0 ) ? obj.entities.urls : undefined;
+    }
   }
 };
 
